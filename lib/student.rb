@@ -36,11 +36,13 @@ class Student
   def self.students_below_12th_grade
     sql = <<-SQL
       SELECT * FROM students
-      WHERE students.grade < 12 AND IS NOT NULL
+      WHERE students.grade != 12
     SQL
-    # binding.pry
-    under_12 = DB[:conn].execute(sql)
-    under_12.first
+    under_12th = []
+    DB[:conn].execute(sql).each do |row|
+      under_12th << new_from_db(row)
+    end
+    under_12th
   end
 
   def self.first_X_students_in_grade_10(count)
