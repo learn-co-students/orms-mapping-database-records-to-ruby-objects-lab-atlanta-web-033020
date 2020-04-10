@@ -36,7 +36,7 @@ class Student
   def self.students_below_12th_grade
     sql = <<-SQL
       SELECT * FROM students
-      WHERE students.grade < 12
+      WHERE students.grade < 12 AND IS NOT NULL
     SQL
     # binding.pry
     under_12 = DB[:conn].execute(sql)
